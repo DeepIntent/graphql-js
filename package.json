@@ -1,6 +1,6 @@
 {
   "name": "graphql",
-  "version": "14.5.8",
+  "version": "14.5.8.1",
   "description": "A Query Language and Runtime which can target any service.",
   "license": "MIT",
   "private": true,
@@ -8,13 +8,13 @@
   "module": "index.mjs",
   "types": "index.d.ts",
   "sideEffects": false,
-  "homepage": "https://github.com/graphql/graphql-js",
+  "homepage": "https://github.com/DeepIntent/graphql-js",
   "bugs": {
-    "url": "https://github.com/graphql/graphql-js/issues"
+    "url": "https://github.com/DeepIntent/graphql-js/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/graphql/graphql-js.git"
+    "url": "https://github.com/DeepIntent/graphql-js"
   },
   "keywords": [
     "graphql",
@@ -39,7 +39,22 @@
     "changelog": "node resources/gen-changelog.js",
     "preversion": ". ./resources/checkgit.sh",
     "version": "node resources/gen-version.js && npm test && git add src/version.js",
-    "gitpublish": ". ./resources/gitpublish.sh"
+    "gitpublish": ". ./resources/gitpublish.sh",
+    "deploy-to-git": "deploy-to-git"
+  },
+  "config": {
+    "deployToGit": {
+      "repository": "git@github.com:DeepIntent/graphql-js.git",
+      "branch": "graphqljs-release",
+      "folder": "build",
+      "script": "yarn run build",
+      "commit": "feat(auto-commit-bot): publishing graphjs-di-v$npm_package_version$npm_package_extension",
+      "beforePushScript": "git tag graphjs-di-v$npm_package_version$npm_package_extension",
+      "user": {
+        "email": "yashashri@deepintent.com",
+        "name": "yashashribhandari"
+      }
+    }
   },
   "dependencies": {
     "iterall": "^1.2.2"
@@ -52,6 +67,7 @@
     "@babel/register": "7.5.5",
     "babel-eslint": "10.0.2",
     "chai": "4.2.0",
+    "deploy-to-git": "^0.1.5",
     "dtslint": "^0.9.2",
     "eslint": "5.16.0",
     "eslint-plugin-flowtype": "3.12.1",
