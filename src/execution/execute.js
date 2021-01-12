@@ -771,6 +771,18 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
   return null;
 }
 
+const queryExclusionList = [
+  'locationsFlat',
+  'iabCategoriesFlat',
+  'iabCategoriesFlatV2',
+  'flatSafetySegments',
+  'devicesFlat',
+  'searchFlatSegments',
+  'devices',
+  'locations',
+  'flatSegmentsV2',
+];
+
 /**
  * Implements the instructions for completeValue as defined in the
  * "Field entries" section of the spec.
@@ -792,19 +804,6 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
  * Otherwise, the field type expects a sub-selection set, and will complete the
  * value by evaluating all sub-selections.
  */
-
-const queryExclusionList = [
-  'locationsFlat',
-  'iabCategoriesFlat',
-  'iabCategoriesFlatV2',
-  'flatSafetySegments',
-  'devicesFlat',
-  'searchFlatSegments',
-  'devices',
-  'locations',
-  'flatSegmentsV2',
-];
-
 function completeValue(
   exeContext: ExecutionContext,
   returnType: GraphQLOutputType,
@@ -816,7 +815,9 @@ function completeValue(
   // If result is an Error, throw a located error.
   if (result instanceof Error) {
     throw result;
-  } else if (queryExclusionList.includes(info.fieldName)) {
+  }
+
+  if (queryExclusionList.includes(info.fieldName)) {
     return result;
   }
 
