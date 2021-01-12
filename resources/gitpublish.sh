@@ -14,7 +14,7 @@ npm run build
 
 # Create empty npm directory
 rm -rf npm
-git clone -b npm "https://${GH_TOKEN}@github.com/graphql/graphql-js.git" npm
+git clone -b npm "https://chinmay1994@github.com/Deepintent/graphql-js.git" npm
 
 # Remove existing files first
 rm -rf npm/**/*
@@ -29,8 +29,8 @@ echo $HEADREV
 
 # Deploy
 cd npm
-git config user.name "Travis CI"
-git config user.email "github@fb.com"
+git config user.name "chinmay1994"
+git config user.email "chinu.k210@gmail.com"
 git add -A .
 if git diff --staged --quiet; then
   echo "Nothing to publish"

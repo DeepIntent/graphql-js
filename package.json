@@ -41,22 +41,7 @@
     "changelog": "node resources/gen-changelog.js",
     "preversion": ". ./resources/checkgit.sh",
     "version": "node resources/gen-version.js && npm test && git add src/version.js",
-    "gitpublish": ". ./resources/gitpublish.sh",
-    "deploy": "yarn cache clean && yarn run deploy-to-git"
-  },
-  "config": {
-    "deployToGit": {
-      "repository": "git@github.com:DeepIntent/graphql-js.git",
-      "branch": "graphqljs-release",
-      "folder": "dist",
-      "script": "yarn run build",
-      "commit": "feat(auto-commit-bot): publishing graphjs-di-v$npm_package_version$npm_package_extension",
-      "beforePushScript": "git tag graphjs-di-v$npm_package_version$npm_package_extension",
-      "user": {
-        "email": "yashashri@deepintent.com",
-        "name": "yashashribhandari"
-      }
-    }
+    "gitpublish": ". ./resources/gitpublish.sh"
   },
   "dependencies": {
     "iterall": "^1.2.2"
