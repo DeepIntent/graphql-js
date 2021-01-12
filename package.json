@@ -42,13 +42,13 @@
     "preversion": ". ./resources/checkgit.sh",
     "version": "node resources/gen-version.js && npm test && git add src/version.js",
     "gitpublish": ". ./resources/gitpublish.sh",
-    "deploy": "yarn run clean && yarn run deploy-to-git"
+    "deploy": "yarn cache clean && yarn run deploy-to-git"
   },
   "config": {
     "deployToGit": {
       "repository": "git@github.com:DeepIntent/graphql-js.git",
       "branch": "graphqljs-release",
-      "folder": "build",
+      "folder": "dist",
       "script": "yarn run build",
       "commit": "feat(auto-commit-bot): publishing graphjs-di-v$npm_package_version$npm_package_extension",
       "beforePushScript": "git tag graphjs-di-v$npm_package_version$npm_package_extension",
