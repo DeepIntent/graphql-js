@@ -144,6 +144,7 @@ declare function execute(
   ExecutionArgs,
   ..._: []
 ): PromiseOrValue<ExecutionResult>;
+
 /* eslint-disable no-redeclare */
 declare function execute(
   schema: GraphQLSchema,
@@ -155,6 +156,7 @@ declare function execute(
   fieldResolver?: ?GraphQLFieldResolver<any, any>,
   typeResolver?: ?GraphQLTypeResolver<any, any>,
 ): PromiseOrValue<ExecutionResult>;
+
 export function execute(
   argsOrSchema,
   document,
@@ -170,15 +172,15 @@ export function execute(
   return arguments.length === 1
     ? executeImpl(argsOrSchema)
     : executeImpl({
-        schema: argsOrSchema,
-        document,
-        rootValue,
-        contextValue,
-        variableValues,
-        operationName,
-        fieldResolver,
-        typeResolver,
-      });
+      schema: argsOrSchema,
+      document,
+      rootValue,
+      contextValue,
+      variableValues,
+      operationName,
+      fieldResolver,
+      typeResolver,
+    });
 }
 
 function executeImpl(args: ExecutionArgs): ExecutionResult {
@@ -768,6 +770,7 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
   exeContext.errors.push(error);
   return null;
 }
+
 const queryExclusionList = [
   'locationsFlat',
   'iabCategoriesFlat',
@@ -776,6 +779,8 @@ const queryExclusionList = [
   'devicesFlat',
   'searchFlatSegments',
   'devices',
+  'locations',
+  'flatSegmentsV2',
 ];
 
 /**
@@ -887,7 +892,7 @@ function completeValue(
   invariant(
     false,
     'Cannot complete value of unexpected output type: ' +
-      inspect((returnType: empty)),
+    inspect((returnType: empty)),
   );
 }
 
@@ -945,7 +950,7 @@ function completeLeafValue(returnType: GraphQLLeafType, result: mixed): mixed {
   if (isInvalid(serializedResult)) {
     throw new Error(
       `Expected a value of type "${inspect(returnType)}" but ` +
-        `received: ${inspect(result)}`,
+      `received: ${inspect(result)}`,
     );
   }
   return serializedResult;
@@ -1020,8 +1025,8 @@ function ensureValidRuntimeType(
   if (!isObjectType(runtimeType)) {
     throw new GraphQLError(
       `Abstract type ${returnType.name} must resolve to an Object type at runtime for field ${info.parentType.name}.${info.fieldName} with ` +
-        `value ${inspect(result)}, received "${inspect(runtimeType)}". ` +
-        `Either the ${returnType.name} type should provide a "resolveType" function or each possible type should provide an "isTypeOf" function.`,
+      `value ${inspect(result)}, received "${inspect(runtimeType)}". ` +
+      `Either the ${returnType.name} type should provide a "resolveType" function or each possible type should provide an "isTypeOf" function.`,
       fieldNodes,
     );
   }
@@ -1111,6 +1116,7 @@ function collectAndExecuteSubfields(
  * saves overhead when resolving lists of values.
  */
 const collectSubfields = memoize3(_collectSubfields);
+
 function _collectSubfields(
   exeContext: ExecutionContext,
   returnType: GraphQLObjectType,
@@ -1188,10 +1194,9 @@ export const defaultTypeResolver: GraphQLTypeResolver<mixed, mixed> = function(
  * and returns it as the result, or if it's a function, returns the result
  * of calling that function while passing along args and context value.
  */
-export const defaultFieldResolver: GraphQLFieldResolver<
+export const defaultFieldResolver: GraphQLFieldResolver<mixed,
   mixed,
-  mixed,
-> = function(source: any, args, contextValue, info) {
+  > = function(source: any, args, contextValue, info) {
   // ensure source is a value for which property access is acceptable.
   if (isObjectLike(source) || typeof source === 'function') {
     const property = source[info.fieldName];
