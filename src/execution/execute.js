@@ -801,6 +801,8 @@ function completeValue(
   // If result is an Error, throw a located error.
   if (result instanceof Error) {
     throw result;
+  }else {
+    return result;
   }
 
   // If field type is NonNull, complete for inner type, and throw field error
