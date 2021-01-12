@@ -768,6 +768,15 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
   exeContext.errors.push(error);
   return null;
 }
+const queryExclusionList = [
+  'locationsFlat',
+  'iabCategoriesFlat',
+  'iabCategoriesFlatV2',
+  'flatSafetySegments',
+  'devicesFlat',
+  'searchFlatSegments',
+  'devices',
+];
 
 /**
  * Implements the instructions for completeValue as defined in the
@@ -801,7 +810,9 @@ function completeValue(
   // If result is an Error, throw a located error.
   if (result instanceof Error) {
     throw result;
-  }else {
+  }
+
+  if (queryExclusionList.includes(info.fieldName)) {
     return result;
   }
 

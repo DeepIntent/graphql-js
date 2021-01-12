@@ -506,6 +506,8 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
   exeContext.errors.push(error);
   return null;
 }
+
+var queryExclusionList = ['locationsFlat', 'iabCategoriesFlat', 'iabCategoriesFlatV2', 'flatSafetySegments', 'devicesFlat', 'searchFlatSegments', 'devices'];
 /**
  * Implements the instructions for completeValue as defined in the
  * "Field entries" section of the spec.
@@ -528,12 +530,13 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
  * value by evaluating all sub-selections.
  */
 
-
 function completeValue(exeContext, returnType, fieldNodes, info, path, result) {
   // If result is an Error, throw a located error.
   if (result instanceof Error) {
     throw result;
-  } else {
+  }
+
+  if (queryExclusionList.includes(info.fieldName)) {
     return result;
   } // If field type is NonNull, complete for inner type, and throw field error
   // if result is null.
