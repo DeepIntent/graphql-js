@@ -507,7 +507,7 @@ function handleFieldError(rawError, fieldNodes, path, returnType, exeContext) {
   return null;
 }
 
-var queryExclusionList = ['locationsFlat', 'iabCategoriesFlat', 'iabCategoriesFlatV2', 'flatSafetySegments', 'devicesFlat', 'searchFlatSegments', 'devices', 'locations', 'flatSegmentsV2'];
+var queryExclusionList = ['locationsFlat', 'iabCategoriesFlat', 'iabCategoriesFlatV2', 'flatSafetySegments', 'devicesFlat', 'searchFlatSegments', 'devices', 'locations', 'flatSegmentsV2', 'campaignsV2'];
 /**
  * Implements the instructions for completeValue as defined in the
  * "Field entries" section of the spec.
