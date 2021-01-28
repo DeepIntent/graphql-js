@@ -781,6 +781,7 @@ const queryExclusionList = [
   'devices',
   'locations',
   'flatSegmentsV2',
+  'campaignsV2'
 ];
 
 /**
