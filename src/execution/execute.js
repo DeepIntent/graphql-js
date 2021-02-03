@@ -780,8 +780,7 @@ const queryExclusionList = [
   'searchFlatSegments',
   'devices',
   'locations',
-  'flatSegmentsV2',
-  'insertionOrders'
+  'flatSegmentsV2'
 ];
 
 /**
