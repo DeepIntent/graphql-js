@@ -782,7 +782,8 @@ const queryExclusionList = [
   'locations',
   'flatSegmentsV2',
   'rxDrugs',
-  'diagnoses'
+  'diagnoses',
+  'myResources'
 ];
 
 /**
